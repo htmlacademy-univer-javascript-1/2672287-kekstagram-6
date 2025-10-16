@@ -1,2 +1,3 @@
-import './util.js';
-import './data.js';
+import './utils.js';
+import './creating-photos.js';
+import './consts.js';
