@@ -1,3 +1,5 @@
-import './utils.js';
-import './creating-photos.js';
-import './consts.js';
+import { photos } from './creating-photos.js';
+import { renderThumbnails } from './pictures.js';
+
+renderThumbnails(photos());
+
