@@ -1,34 +1,70 @@
-import { getRandomInteger, getRandomArrayElement } from './utils.js';
-import { NAMES, SURNAMES, DESCRIPTIONS, MESSAGES, PHOTO_COUNT } from './const.js';
+import { isEscapeKey } from './utils.js';
+import { pictures } from './pictures.js';
+import { initComments, onCommentsLoaderClick, resetComments } from './big-picture-comments.js';
+import { initLikes, onLikesClick, resetLikes } from './big-picture-likes.js';
 
-const createMessage = () => {
-  const message = [getRandomArrayElement(MESSAGES)];
-  if (Math.random() < 0.5) {
-    message.push(getRandomArrayElement(MESSAGES));
-  }
-  return message.join(' ');
+const openBigPic = document.querySelector('.pictures');
+const closeBigPic = document.querySelector('.big-picture__cancel');
+const mainWindow = document.body;
+
+const bigPicture = document.querySelector('.big-picture');
+const bigPicImg = bigPicture.querySelector('.big-picture__img img');
+const bigPicDescription = bigPicture.querySelector('.social__caption');
+const bigPicComments = bigPicture.querySelector('.comments-count');
+const bigPicCommentLoader = document.querySelector('.comments-loader');
+const bigPicLikes = document.querySelector('.likes-count');
+
+const onCloseBigPic = () => {
+  bigPicture.classList.add('hidden');
+  mainWindow.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+
+  resetComments();
+  resetLikes();
 };
 
-let commentId = 1;
-const createComment = () => ({
-  id: commentId++,
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-  message: createMessage(),
-  name: `${getRandomArrayElement(NAMES)} ${getRandomArrayElement(SURNAMES)}`,
+const onOpenBigPic = () => {
+  bigPicture.classList.remove('hidden');
+  mainWindow.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
+  bigPicCommentLoader.addEventListener('click', onCommentsLoaderClick);
+  bigPicLikes.addEventListener('click', onLikesClick);
+};
+
+const onThumbnailClick = (evt) => {
+  const thumbnail = evt.target.closest('.picture');
+
+  if (thumbnail) {
+    const currentThumbnails = Array.from(document.querySelectorAll('.picture'));
+    const thumbnailImg = thumbnail.querySelector('.picture__img');
+    const index = currentThumbnails.indexOf(thumbnail);
+
+    if (index !== -1) {
+      const pictureData = pictures[index];
+
+      bigPicImg.src = thumbnailImg.src;
+      bigPicDescription.textContent = thumbnailImg.alt;
+      bigPicComments.textContent = pictureData.comments.length;
+
+      initLikes(index, pictureData.likes);
+      initComments(pictureData.comments);
+
+      onOpenBigPic();
+    }
+  }
+};
+
+closeBigPic.addEventListener('click', () => {
+  onCloseBigPic();
 });
 
-const createPhoto = (id) => ({
-  id,
-  url: `photos/${id}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(15, 200),
-  comments: Array.from(
-    { length: getRandomInteger(0, 30) },
-    createComment
-  ),
+openBigPic.addEventListener('click', (evt) => {
+  onThumbnailClick(evt);
 });
 
-const photos = () => Array.from({ length: PHOTO_COUNT }, (_, i) =>
-  createPhoto(i + 1)
-);
-export { photos };
+function onDocumentKeydown (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    onCloseBigPic();
+  }
+}
