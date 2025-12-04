@@ -15,7 +15,7 @@ const NAMES = [
   'Онопко',
   'Топольницкая',
   'Нионго',
-  'Ирвинг'.
+  'Ирвинг'
 ];
 
 const MESSAGES = [
@@ -40,16 +40,16 @@ const createIdGenerator = () => {
   let lastGeneratedId = 0;
 
   return () => {
-   lastGeneratedId += 1;
-   return lastGeneratedId;
- };
+    lastGeneratedId += 1;
+    return lastGeneratedId;
+  };
 };
 
 const getCommentId = createIdGenerator();
 
 const createMessage = () => Array.from(
   { length: getRandomInteger(1, 2) },
- () => getRandomArrayElement(MESSAGES),
+  () => getRandomArrayElement(MESSAGES),
 ).join(' ');
 
 const createComment = () => ({
