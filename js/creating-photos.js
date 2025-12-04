@@ -1,4 +1,8 @@
 import { getRandomInteger, getRandomArrayElement } from './utils.js';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8edcd188e94aea1cf4013dba35ddc81c5d4bb908
 import { NAMES, SURNAMES, DESCRIPTIONS, MESSAGES, PHOTO_COUNT } from './const.js';
 
 const createMessage = () => {
@@ -28,7 +32,11 @@ const createPhoto = (id) => ({
   ),
 });
 
+<<<<<<< HEAD
 const photos = () => Array.from({ length: PHOTO_COUNT }, (_, i) =>
+=======
+const photos = Array.from({ length: PHOTO_COUNT }, (_, i) =>
+>>>>>>> 8edcd188e94aea1cf4013dba35ddc81c5d4bb908
   createPhoto(i + 1)
 );
 export { photos };
