@@ -68,3 +68,9 @@ function onDocumentKeydown (evt) {
     onCloseBigPic();
   }
 }
+
+const photos = () => Array.from({ length: PHOTO_COUNT }, (_, i) =>
+  createPhoto(i + 1)
+);
+export { photos };
+
