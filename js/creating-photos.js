@@ -1,5 +1,4 @@
 import { getRandomInteger, getRandomArrayElement } from './utils.js';
-
 import { NAMES, SURNAMES, DESCRIPTIONS, MESSAGES, PHOTO_COUNT } from './const.js';
 
 const createMessage = () => {
@@ -29,7 +28,7 @@ const createPhoto = (id) => ({
   ),
 });
 
-const photos = Array.from({ length: PHOTO_COUNT }, (_, i) =>
+const photos = () => Array.from({ length: PHOTO_COUNT }, (_, i) =>
   createPhoto(i + 1)
 );
 export { photos };
