@@ -1,3 +1,5 @@
+
+import { createPictures } from './const.js';
 import { onPhotoMiniatureClick } from './big-picture-modal.js';
 
 const createThumbnailElement = (photoData) => {
@@ -21,16 +23,20 @@ const createThumbnailElement = (photoData) => {
   return thumbnail;
 };
 
-const renderThumbnails = (photoList) => {
-  const picturesContainer = document.querySelector('.pictures');
-  const fragment = document.createDocumentFragment();
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+export const pictures = createPictures();
 
-  photoList.forEach((photo) => {
-    const thumbnailElement = createThumbnailElement(photo);
-    fragment.appendChild(thumbnailElement);
-  });
+const pictureList = document.querySelector('.pictures');
+const pictureListFragment = document.createDocumentFragment();
 
-  picturesContainer.appendChild(fragment);
-};
+pictures.forEach(({url, description, likes, comments}) => {
+  const pictureElement = pictureTemplate.cloneNode(true);
+  const imgElement = pictureElement.querySelector('.picture__img');
+  imgElement.src = url;
+  imgElement.alt = description;
+  pictureElement.querySelector('.picture__likes').textContent = likes;
+  pictureElement.querySelector('.picture__comments').textContent = comments.length;
+  pictureListFragment.append(pictureElement);
+});
 
-export { renderThumbnails };
+pictureList.append(pictureListFragment);
