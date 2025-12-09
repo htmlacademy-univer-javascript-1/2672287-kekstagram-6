@@ -1,3 +1,4 @@
 import './pictures.js';
 import './big-picture-modal.js';
-//будут изменения
+import './image-editing.js';
+import './image-scale.js';
