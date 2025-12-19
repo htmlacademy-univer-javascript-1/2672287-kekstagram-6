@@ -150,8 +150,8 @@ main {
   border: none;
 }
 
-.img-filters__button:active,
-.img-filters__button--active {
+.img-filters__button:hover
+{
   color: #ff4e4e;
 
   background-color: #ffffff;
@@ -191,7 +191,7 @@ main {
   grid-gap: 10px;
 
   -ms-grid-columns: (1fr)[7];
-      grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, 1fr);
 }
 
 .picture {
