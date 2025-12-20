@@ -75,13 +75,12 @@ const onEffectChangeHandler = (evt) => {
   if (currentEffect === 'none') {
     effectLevel.classList.add('hidden');
     cleanupEffect();
-
-    effectLevel.classList.remove('hidden');
-    const effectData = EFFECTS[currentEffect];
-    applyEffect(currentEffect, effectData.max);
-    updateSliderOptions(currentEffect);
-
   }
+
+  effectLevel.classList.remove('hidden');
+  const effectData = EFFECTS[currentEffect];
+  applyEffect(currentEffect, effectData.max);
+  updateSliderOptions(currentEffect);
 };
 
 const initEffects = () => {
